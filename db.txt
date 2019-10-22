@@ -1,0 +1,32 @@
+
+/*Nota: Verifique que no exista una base de datos "tienda" en el caso exita remplazar el nombre por otro y no olvidar reemplazarlo en el archivo "app.config" en la zona de "connectionStrings" en la propiedad "Initial Catalog"*/
+
+
+CREATE DATABASE tienda
+GO
+USE tienda
+GO
+CREATE TABLE Producto
+(
+IdProducto		INT IDENTITY(1,1) PRIMARY KEY,
+Nombre			VARCHAR(150),
+Precio			DECIMAL(18,2),
+Stock			INT
+)
+
+GO
+CREATE PROCEDURE [usp.PRODUCTO.ObtenerListado]
+AS BEGIN 
+	SELECT p.IdProducto,p.Nombre,p.Precio,p.Stock FROM Producto p ORDER BY p.IdProducto DESC
+END
+GO
+CREATE PROCEDURE [usp.PRODUCTO.Insertar]
+(
+@Nombre			VARCHAR(150),
+@Precio			DECIMAL(18,2),
+@Stock			INT
+)
+AS BEGIN 
+	INSERT INTO Producto(Nombre,Precio,Stock)
+				VALUES(@Nombre,@Precio,@Stock)
+END
